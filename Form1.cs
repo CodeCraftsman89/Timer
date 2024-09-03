@@ -21,7 +21,7 @@ namespace Timer
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Interval = 60000; // 1 секунда
-            labelStatus.Text = "Введите время в минутах и нажмите 'Старт'.";
+            labelStatus.Text = "Введите время в минутах.";
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
