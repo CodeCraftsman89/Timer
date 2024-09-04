@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Timer
 {
@@ -21,7 +16,7 @@ namespace Timer
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Interval = 60000; // 1 секунда
-            labelStatus.Text = "Введите время в минутах.";
+            labelStatus.Text = "Enter the time in minutes";
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -31,11 +26,11 @@ namespace Timer
                 buttonStart.Enabled = false;
                 textBoxTime.Enabled = false;
                 timer1.Start();
-                labelStatus.Text = "Таймер запущен!";
+                labelStatus.Text = "The timer has started!";
             }
             else
             {
-                MessageBox.Show("Пожалуйста, введите корректное время.");
+                MessageBox.Show("Please enter a valid time.");
             }
         }
 
@@ -44,16 +39,51 @@ namespace Timer
             if (timeLeft > 0)
             {
                 timeLeft--;
-                labelStatus.Text = $"Оставшееся время: {timeLeft} секунд.";
+                labelStatus.Text = $"Time remaining: {timeLeft} minutes.";
             }
             else
             {
                 timer1.Stop();
-                MessageBox.Show("Время вышло!");
-                labelStatus.Text = "Таймер завершен.";
+                Notification();
+                labelStatus.Text = "The timer has expired.";
                 buttonStart.Enabled = true;
                 textBoxTime.Enabled = true;
             }
+        }
+        public void Notification()
+        {
+            // Инициализация NotifyIcon
+            notifyIcon1.Icon = SystemIcons.Information; // Установите иконку для уведомления
+            notifyIcon1.Visible = true;
+
+            // Показать всплывающее уведомление
+            notifyIcon1.ShowBalloonTip(3000, "Time's up", $"{textBoxTime.Text} minutes has passed", ToolTipIcon.Info);
+
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void buttonGitHub_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/CodeCraftsman89");
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
